@@ -1,0 +1,85 @@
+.skills {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.skills-orbit-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center Logo */
+.orbit-center {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 0 60px rgba(0, 255, 136, 0.5),
+        0 0 120px rgba(0, 255, 136, 0.2);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--bg-dark);
+}
+
+/* Orbit Wrapper - rotates around center */
+.orbit-wrapper {
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Skill Planets */
+.skill-planet {
+    position: absolute;
+    background: rgba(15, 15, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.skill-planet:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+    z-index: 100;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .skills-orbit-container {
+        transform: scale(0.5);
+    }
+
+    .orbit-center {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-orbit-container {
+        transform: scale(0.4);
+    }
+}
