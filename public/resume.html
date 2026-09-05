@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sahil Singh — Resume</title>
+    <style>
+      :root {
+        --ink: #111;
+        --mute: #555;
+        --line: #ddd;
+        --accent: #1a1a1a;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--ink);
+        background: #f3f3f3;
+        line-height: 1.45;
+      }
+      .bar {
+        max-width: 820px;
+        margin: 20px auto 0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .bar a, .bar button {
+        border: 1px solid #111;
+        background: #111;
+        color: #fff;
+        padding: 8px 14px;
+        font-size: 13px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .page {
+        max-width: 820px;
+        margin: 16px auto 40px;
+        background: #fff;
+        padding: 44px 48px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.08);
+      }
+      h1 { font-size: 28px; letter-spacing: .02em; }
+      .role { font-size: 14px; color: var(--mute); margin: 4px 0 10px; }
+      .meta { font-size: 12px; color: #333; }
+      .meta a { color: #111; }
+      h2 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 4px;
+        margin: 22px 0 10px;
+      }
+      p, li { font-size: 13px; }
+      ul { padding-left: 18px; }
+      li { margin-bottom: 4px; }
+      .job { margin-bottom: 14px; }
+      .job-top { display: flex; justify-content: space-between; gap: 12px; }
+      .job strong { font-size: 13.5px; }
+      .job em { font-style: normal; color: var(--mute); font-size: 12px; }
+      .skills { font-size: 13px; }
+      @media print {
+        body { background: #fff; }
+        .bar { display: none; }
+        .page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <a href="/">Back to site</a>
+      <button type="button" onclick="window.print()">Download / Print PDF</button>
+    </div>
+    <main class="page">
+      <h1>SAHIL SINGH</h1>
+      <p class="role">Software Development Engineer · React · Electron.js · TypeScript</p>
+      <p class="meta">
+        +91 78891 43859 ·
+        <a href="mailto:sahilserrka058@gmail.com">sahilserrka058@gmail.com</a> ·
+        <a href="https://sahilsingh.me">sahilsingh.me</a> ·
+        <a href="https://www.linkedin.com/in/sahilserrka/">linkedin/sahilserrka</a> ·
+        <a href="https://github.com/JScoder-git">github/JScoder-git</a> ·
+        Chandigarh
+      </p>
+
+      <h2>Professional Summary</h2>
+      <p>
+        Software Development Engineer at PSquare (May 2025–Present). Built SURYACON, a construction ERP
+        with a 20+ engineer team, and shipped TUDOOR solo at tudoor.co (web + Capacitor). Strong in React,
+        Redux/RTK Query, offline-first UI, Electron, and NestJS/Express APIs.
+      </p>
+
+      <h2>Technical Skills</h2>
+      <p class="skills"><strong>Frontend:</strong> JavaScript (ES6+), TypeScript, React 19, Redux Toolkit, Zustand, TanStack Query, Vite, Tailwind, Framer Motion</p>
+      <p class="skills"><strong>Desktop &amp; Mobile:</strong> Electron.js (IPC, multi-platform builds), Capacitor (Android/iOS), better-sqlite3</p>
+      <p class="skills"><strong>Backend:</strong> Node.js, Express, NestJS, Fastify, Socket.io, BullMQ, Prisma, PostgreSQL, MongoDB, Redis</p>
+      <p class="skills"><strong>Cloud &amp; Auth:</strong> AWS (EC2, S3, SES, SNS, CloudFront), Docker, JWT, Google OAuth/PKCE, RBAC, AES-256</p>
+
+      <h2>Professional Experience</h2>
+
+      <div class="job">
+        <div class="job-top">
+          <strong>Solo Full-Stack Developer — PSquare · TUDOOR</strong>
+          <em>Jun 2026 – Aug 2026</em>
+        </div>
+        <p>Mohali, India · Public live product (tudoor.co)</p>
+        <ul>
+          <li>Shipped the public EdTech marketplace alone — web plus Capacitor Android/iOS.</li>
+          <li>Built Express 5 + Prisma + PostgreSQL API with Redis, Socket.io chat, BullMQ, Razorpay + RevenueCat.</li>
+          <li>Geo marketplace (requirements → proposals → matches). ~65ms avg / ~126ms p95 under k6.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <strong>Software Development Engineer — PSquare · SURYACON</strong>
+          <em>Aug 2025 – Jun 2026</em>
+        </div>
+        <p>Mohali, India · Construction ERP · 20+ engineers</p>
+        <ul>
+          <li>Built frontend for Electron ERP — 7 role UIs, 59 IPC handlers, ~700 TS/TSX files.</li>
+          <li>Owned Redux Toolkit + RTK Query (38 slices, ~450 endpoints) across Billing, Inventory, PO, HR.</li>
+          <li>Built offline-first encrypted SQLite (AES + zlib). Sync 30s → 5s. 40% less storage. 85% smaller payloads.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <strong>Software Developer — PSquare · CEPPL</strong>
+          <em>May 2025 – Aug 2025</em>
+        </div>
+        <p>Mohali, India</p>
+        <ul>
+          <li>Built a private firm operations dashboard (React + Redux Toolkit + Vite) with org-restricted access.</li>
+          <li>Reporting UI with PDF/Excel export flows (jsPDF, XLSX) and reusable module components.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <strong>Full-Stack Developer — Navodita Infotech · JS:MEDIA</strong>
+          <em>Dec 2024 – Apr 2025</em>
+        </div>
+        <p>Pune, India</p>
+        <ul>
+          <li>Built React social feed, messaging UI, and realtime chat for 500+ users / 1,000+ daily messages.</li>
+          <li>Express + MongoDB APIs, JWT auth, and a dedicated Socket.io service.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <strong>Full-Stack Developer — TripIt India</strong>
+          <em>Aug 2024 – Dec 2024</em>
+        </div>
+        <p>Delhi, India</p>
+        <ul>
+          <li>Developed booking UI and REST APIs for tours, international packages, custom requests, and blog.</li>
+          <li>JWT-secured booking flows on MongoDB supporting $50K+ in bookings.</li>
+        </ul>
+      </div>
+
+      <h2>Education</h2>
+      <div class="job-top">
+        <strong>Bachelor of Engineering — Computer Science, Chandigarh University</strong>
+        <em>2021 – 2025</em>
+      </div>
+
+      <h2>Key Projects</h2>
+      <div class="job">
+        <strong>JSync Engine (npm v0.7.8)</strong>
+        <ul>
+          <li>Offline-first sync SDK with SQLite, Fastify WebSocket server, CRDTs, and 60–80% less bandwidth.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <strong>GEXUS — gexus.tech</strong>
+        <ul>
+          <li>NestJS + React 19 esports platform: tournaments, escrow marketplace, Go/S3 uploads, Razorpay wallets.</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,140 +1,115 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useRef } from 'react'
+import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { about, profile } from '../data'
 import ProfilePicture from '../assets/Profile Picture.png'
 import './About.css'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const About = () => {
-    const sectionRef = useRef(null)
+  const sectionRef = useRef(null)
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.from('.about-image-wrapper', {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse',
-                },
-                x: -120,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'expo.out',
-            })
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
 
-            gsap.from('.about-content', {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse',
-                },
-                x: 120,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'expo.out',
-            })
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        document.fonts.ready.then(() => {
+          const split = SplitText.create('.about-heading', {
+            type: 'words,lines',
+            aria: 'auto',
+            mask: 'lines',
+          })
 
-            gsap.from('.expertise-tag', {
-                scrollTrigger: {
-                    trigger: '.expertise-tags',
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse',
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.08,
-                ease: 'power3.out',
-            })
+          gsap.from(split.words, {
+            yPercent: 120,
+            stagger: 0.04,
+            duration: 1,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: '.about-heading', start: 'top 82%' },
+          })
+        })
 
-            // Parallax effect on image - smoother
-            gsap.to('.about-image-wrapper', {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 2,
-                },
-                y: -80,
-                ease: 'none',
-            })
-        }, sectionRef)
+        gsap.from('.about-photo img', {
+          yPercent: 18,
+          scale: 1.18,
+          duration: 1.4,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.about-photo', start: 'top 80%' },
+        })
 
-        return () => ctx.revert()
-    }, [])
+        gsap.from('.about-photo', {
+          clipPath: 'inset(18% 18% 18% 18%)',
+          duration: 1.3,
+          ease: 'power4.inOut',
+          scrollTrigger: { trigger: '.about-photo', start: 'top 80%' },
+        })
 
-    const expertiseItems = [
-        { icon: '🚀', label: 'Enterprise Apps' },
-        { icon: '📡', label: 'Offline-First' },
-        { icon: '⚡', label: 'Real-time' },
-        { icon: '🔒', label: 'Secure IPC' },
-        { icon: '🔄', label: 'Data Sync' },
-        { icon: '💻', label: 'Desktop Apps' },
-    ]
+        gsap.from('.about-copy p', {
+          y: 28,
+          autoAlpha: 0,
+          stagger: 0.12,
+          duration: 0.8,
+          scrollTrigger: { trigger: '.about-copy', start: 'top 80%' },
+        })
 
-    return (
-        <section id="about" ref={sectionRef} className="about">
-            <div className="container">
-                <div className="section-title">
-                    <h2>About Me</h2>
-                    <p>Passionate developer crafting offline-first solutions</p>
-                </div>
+        gsap.from('.about-chip', {
+          y: 20,
+          autoAlpha: 0,
+          stagger: 0.06,
+          duration: 0.55,
+          scrollTrigger: { trigger: '.about-chips', start: 'top 88%' },
+        })
+      })
 
-                <div className="about-grid">
-                    <div className="about-image-wrapper">
-                        <div className="about-image">
-                            <img src={ProfilePicture} alt="Sahil Singh" className="profile-img" />
-                            <div className="image-border"></div>
-                            <div className="image-glow"></div>
-                        </div>
-                        <div className="floating-badge">
-                            <span className="badge-icon">💼</span>
-                            <span className="badge-text">Open to Work</span>
-                        </div>
+      return () => mm.revert()
+    },
+    { scope: sectionRef }
+  )
 
-                        <div className="about-cta">
-                            <a href="mailto:sahilserrka058@gmail.com" className="btn btn-primary">
-                                Get In Touch
-                            </a>
-                            <a href="https://www.linkedin.com/in/sahilserrka/" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                                LinkedIn Profile
-                            </a>
-                        </div>
-                    </div>
+  return (
+    <section id="about" ref={sectionRef} className="section about">
+      <div className="container">
+        <div className="section-head">
+          <div>
+            <p className="section-index">01 — About</p>
+            <h2 className="section-title">The work.</h2>
+          </div>
+          <p className="section-kicker">Systems, teams, and products that stay online when the network does not.</p>
+        </div>
 
-                    <div className="about-content">
-                        <h3>
-                            Software Developer based in
-                            <span className="text-gradient"> Chandigarh, India</span>
-                        </h3>
+        <div className="about-grid">
+          <div className="about-photo">
+            <img src={ProfilePicture} alt={profile.name} />
+            <span className="about-badge">Open to work</span>
+          </div>
 
-                        <p>
-                            I'm a passionate <strong>Software Developer</strong> with <strong>1.5+ years</strong> of
-                            hands-on experience building enterprise-grade applications. I specialize in creating
-                            <strong> offline-first desktop and web applications</strong> using React, Electron.js,
-                            and PouchDB.
-                        </p>
+          <div className="about-copy">
+            <h3 className="about-heading">{about.heading}</h3>
+            {about.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
 
-                        <p>
-                            My journey spans from social media platforms to healthcare systems, always focusing on
-                            <strong> scalable architecture</strong>, <strong>real-time synchronization</strong>, and
-                            <strong> seamless user experiences</strong>. I love solving complex problems and turning
-                            ideas into robust, production-ready solutions.
-                        </p>
-
-                        <div className="expertise-tags">
-                            {expertiseItems.map((item, index) => (
-                                <span key={index} className="expertise-tag">
-                                    {item.icon} {item.label}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+            <div className="about-chips">
+              {about.tags.map((tag) => (
+                <span key={tag.label} className="about-chip">
+                  <em>{tag.icon}</em>
+                  {tag.label}
+                </span>
+              ))}
             </div>
-        </section>
-    )
+
+            <div className="about-actions">
+              <a href={`mailto:${profile.email}`} className="btn btn-primary" data-cursor="Mail">
+                Get in touch
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="btn btn-ghost" data-cursor="Open">
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default About
