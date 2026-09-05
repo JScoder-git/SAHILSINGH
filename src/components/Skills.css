@@ -13,6 +13,8 @@
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 10px 0;
+  /* Wider than the viewport so the scroll drift never exposes a row edge. */
+  margin: 0 -8vw;
 }
 
 .skill-track {

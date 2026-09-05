@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
-import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { gsap, ScrollTrigger, SplitText, useGSAP } from '../lib/gsap'
+import { revealTrigger, revealUp, whenFontsReady } from '../lib/reveal'
 import { profile } from '../data'
 import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from 'react-icons/fa'
 import './Contact.css'
@@ -12,27 +13,63 @@ const Contact = () => {
 
   useGSAP(
     () => {
-      document.fonts.ready.then(() => {
-        const split = SplitText.create('.contact-giant', {
-          type: 'chars',
-          aria: 'auto',
+      const mm = gsap.matchMedia()
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        let cleanup
+
+        whenFontsReady(() => {
+          const split = SplitText.create('.contact-giant', {
+            type: 'chars',
+            aria: 'auto',
+            mask: 'chars',
+          })
+
+          gsap.fromTo(
+            split.chars,
+            { yPercent: 120, rotate: 5 },
+            {
+              yPercent: 0,
+              rotate: 0,
+              stagger: 0.03,
+              duration: 1,
+              ease: 'power4.out',
+              scrollTrigger: revealTrigger('.contact-giant', 'top 85%'),
+            }
+          )
+
+          cleanup = () => split.revert()
+          ScrollTrigger.refresh()
         })
-        gsap.from(split.chars, {
-          yPercent: 120,
-          stagger: 0.03,
-          duration: 1,
-          ease: 'power4.out',
-          scrollTrigger: { trigger: '.contact-giant', start: 'top 85%' },
+
+        revealUp('.contact-index', { trigger: '.contact-index', y: 16, duration: 0.5, start: 'top 92%' })
+
+        gsap.fromTo(
+          '.contact-card, .contact-form',
+          { y: 44, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: revealTrigger('.contact-grid', 'top 82%'),
+          }
+        )
+
+        revealUp('.contact-list li', { trigger: '.contact-list', y: 18, stagger: 0.07, duration: 0.5, start: 'top 90%' })
+        revealUp('.contact-form label, .contact-form .btn', {
+          trigger: '.contact-form',
+          y: 20,
+          stagger: 0.07,
+          duration: 0.55,
+          start: 'top 85%',
         })
+
+        return () => cleanup?.()
       })
 
-      gsap.from('.contact-card, .contact-form', {
-        y: 40,
-        autoAlpha: 0,
-        stagger: 0.12,
-        duration: 0.8,
-        scrollTrigger: { trigger: '.contact-grid', start: 'top 80%' },
-      })
+      return () => mm.revert()
     },
     { scope: sectionRef }
   )
@@ -78,7 +115,7 @@ const Contact = () => {
       )}
 
       <div className="container">
-        <p className="section-index">05 — Contact</p>
+        <p className="section-index contact-index">05 — Contact</p>
         <a href={`mailto:${profile.email}`} className="contact-giant" data-cursor="Mail">
           Let’s talk
         </a>

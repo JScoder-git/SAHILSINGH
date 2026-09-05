@@ -50,6 +50,7 @@
   letter-spacing: -0.055em;
   text-transform: uppercase;
   white-space: nowrap;
+  visibility: hidden;
 }
 
 .hero-line.italic {
@@ -87,6 +88,7 @@
   color: var(--paper-dim);
   font-size: 1.05rem;
   line-height: 1.7;
+  visibility: hidden;
 }
 
 .hero-copy a {
@@ -100,6 +102,10 @@
   flex-shrink: 0;
 }
 
+.hero-cta .btn {
+  visibility: hidden;
+}
+
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -107,6 +113,10 @@
   margin-top: 56px;
   padding-top: 28px;
   border-top: 1px solid var(--line);
+}
+
+.hero-stat {
+  visibility: hidden;
 }
 
 .hero-stat strong {
@@ -130,6 +140,7 @@
   border-bottom: 1px solid var(--line);
   overflow: hidden;
   padding: 18px 0;
+  visibility: hidden;
 }
 
 .marquee-track {

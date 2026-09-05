@@ -36,7 +36,7 @@ export const navLinks = [
 
 export const heroStats = [
   { value: '20+', label: 'Engineers led' },
-  { value: '2', label: 'Live products' },
+  { value: '5', label: 'Live products' },
   { value: '450', label: 'API endpoints' },
   { value: '5s', label: 'ERP sync' },
 ]
@@ -211,7 +211,7 @@ export const projects = [
     tech: ['NestJS', 'React 19', 'Go', 'Prisma', 'Razorpay'],
     image: gexusImage,
     imageFit: 'contain',
-    imageBg: '#101010',
+    imageBg: '#000000',
     color: '#c4b5fd',
     live: 'https://gexus.tech',
   },
@@ -228,7 +228,7 @@ export const projects = [
     tech: ['React.js', 'WebSocket', 'Node.js', 'Monaco Editor'],
     image: codeJettImage,
     imageFit: 'contain',
-    imageBg: '#07090d',
+    imageBg: '#000000',
     color: '#67e8f9',
     github: 'https://github.com/JScoder-git/Hackistica-24-',
   },
@@ -245,7 +245,7 @@ export const projects = [
     tech: ['TypeScript', 'Fastify', 'SQLite', 'CRDTs', 'Turborepo'],
     image: jsyncImage,
     imageFit: 'contain',
-    imageBg: '#07080c',
+    imageBg: '#000000',
     color: '#fbbf24',
     github: 'https://github.com/JScoder-git/SYNC_ENGINE',
   },

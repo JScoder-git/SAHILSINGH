@@ -19,17 +19,33 @@ import './index.css'
 
 function App() {
   const appRef = useRef(null)
+  const lenisRef = useRef(null)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    window.history.scrollRestoration = 'manual'
-    window.scrollTo(0, 0)
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search)
+    }
+
+    const toTop = () => {
+      window.scrollTo(0, 0)
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+      lenisRef.current?.scrollTo(0, { immediate: true })
+    }
+
+    toTop()
 
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     })
+    lenisRef.current = lenis
+    lenis.scrollTo(0, { immediate: true })
 
     lenis.on('scroll', ScrollTrigger.update)
     const ticker = (time) => lenis.raf(time * 1000)
@@ -63,12 +79,25 @@ function App() {
       gsap.ticker.remove(ticker)
       st.kill()
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [])
 
   useEffect(() => {
     if (!ready) return
-    const id = requestAnimationFrame(() => ScrollTrigger.refresh())
+
+    const toTop = () => {
+      window.scrollTo(0, 0)
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+      lenisRef.current?.scrollTo(0, { immediate: true })
+    }
+
+    toTop()
+    const id = requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+      toTop()
+    })
     return () => cancelAnimationFrame(id)
   }, [ready])
 

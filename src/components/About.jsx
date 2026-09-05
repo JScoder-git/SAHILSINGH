@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { gsap, ScrollTrigger, SplitText, useGSAP } from '../lib/gsap'
+import { drift, revealHead, revealTrigger, revealUp, whenFontsReady } from '../lib/reveal'
 import { about, profile } from '../data'
 import ProfilePicture from '../assets/Profile Picture.png'
 import './About.css'
@@ -12,52 +13,71 @@ const About = () => {
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        document.fonts.ready.then(() => {
+        const root = sectionRef.current
+        let cleanup
+
+        whenFontsReady(() => {
+          const headCleanup = revealHead(root)
+
           const split = SplitText.create('.about-heading', {
             type: 'words,lines',
             aria: 'auto',
             mask: 'lines',
           })
 
-          gsap.from(split.words, {
-            yPercent: 120,
-            stagger: 0.04,
-            duration: 1,
-            ease: 'power4.out',
-            scrollTrigger: { trigger: '.about-heading', start: 'top 82%' },
-          })
+          gsap.fromTo(
+            split.words,
+            { yPercent: 120 },
+            {
+              yPercent: 0,
+              stagger: 0.04,
+              duration: 1,
+              ease: 'power4.out',
+              scrollTrigger: revealTrigger('.about-heading', 'top 82%'),
+            }
+          )
+
+          cleanup = () => {
+            headCleanup()
+            split.revert()
+          }
+
+          ScrollTrigger.refresh()
         })
 
-        gsap.from('.about-photo img', {
-          yPercent: 18,
-          scale: 1.18,
-          duration: 1.4,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '.about-photo', start: 'top 80%' },
+        gsap.fromTo(
+          '.about-photo',
+          { clipPath: 'inset(18% 18% 18% 18%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1.3,
+            ease: 'power4.inOut',
+            scrollTrigger: revealTrigger('.about-photo', 'top 80%'),
+          }
+        )
+
+        // Slow zoom-out on entry, then a continuous parallax inside the frame.
+        gsap.fromTo(
+          '.about-photo img',
+          { scale: 1.18 },
+          {
+            scale: 1,
+            duration: 1.4,
+            ease: 'power3.out',
+            scrollTrigger: revealTrigger('.about-photo', 'top 80%'),
+          }
+        )
+        drift(root.querySelector('.about-photo img'), {
+          from: -5,
+          to: 5,
+          trigger: root.querySelector('.about-photo'),
         })
 
-        gsap.from('.about-photo', {
-          clipPath: 'inset(18% 18% 18% 18%)',
-          duration: 1.3,
-          ease: 'power4.inOut',
-          scrollTrigger: { trigger: '.about-photo', start: 'top 80%' },
-        })
+        revealUp('.about-copy p', { trigger: '.about-copy', y: 28, stagger: 0.12, duration: 0.8, start: 'top 80%' })
+        revealUp('.about-chip', { trigger: '.about-chips', y: 20, stagger: 0.06, duration: 0.55, start: 'top 88%' })
+        revealUp('.about-actions .btn', { trigger: '.about-actions', y: 20, stagger: 0.08, duration: 0.6, start: 'top 92%' })
 
-        gsap.from('.about-copy p', {
-          y: 28,
-          autoAlpha: 0,
-          stagger: 0.12,
-          duration: 0.8,
-          scrollTrigger: { trigger: '.about-copy', start: 'top 80%' },
-        })
-
-        gsap.from('.about-chip', {
-          y: 20,
-          autoAlpha: 0,
-          stagger: 0.06,
-          duration: 0.55,
-          scrollTrigger: { trigger: '.about-chips', start: 'top 88%' },
-        })
+        return () => cleanup?.()
       })
 
       return () => mm.revert()

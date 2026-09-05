@@ -1,32 +1,33 @@
 .footer {
   border-top: 1px solid var(--line);
   padding: 40px 0 32px;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 .footer-marquee {
-  overflow-x: clip;
-  overflow-y: visible;
-  margin-bottom: 36px;
-  padding: 28px 0 36px;
+  --name-size: clamp(3.5rem, 12vw, 9rem);
+  font-size: var(--name-size);
+  margin-bottom: 20px;
 }
 
 .footer-track {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   width: max-content;
+  padding: 0.22em 0 0.28em;
   animation: footer-marquee 22s linear infinite;
 }
 
 .footer-track span {
-  display: block;
+  display: inline-block;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-size: 1em;
   font-weight: 800;
-  letter-spacing: -0.06em;
-  line-height: 1.35;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-transform: uppercase;
   white-space: nowrap;
-  padding: 0 40px 0.28em 0;
+  padding: 0 0.4em 0 0;
 }
 
 .footer-track em {

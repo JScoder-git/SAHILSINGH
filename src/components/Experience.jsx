@@ -1,7 +1,10 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
+import { revealTrigger, revealUp } from '../lib/reveal'
 import { experiences } from '../data'
 import './Experience.css'
+
+const CARD_BITS = '.exp-top, .exp-period, h3, .exp-company, li, .exp-tech'
 
 const Experience = () => {
   const sectionRef = useRef(null)
@@ -16,7 +19,7 @@ const Experience = () => {
       const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth)
 
       mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
-        gsap.to(track, {
+        const scrollTween = gsap.to(track, {
           x: () => -getDistance(),
           ease: 'none',
           scrollTrigger: {
@@ -32,15 +35,53 @@ const Experience = () => {
             },
           },
         })
+
+        // Cards react to the horizontal travel, so they animate both ways.
+        gsap.utils.toArray('.exp-card').forEach((card) => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              containerAnimation: scrollTween,
+              trigger: card,
+              start: 'left 92%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+
+          tl.fromTo(
+            card,
+            { autoAlpha: 0.25, scale: 0.96 },
+            { autoAlpha: 1, scale: 1, duration: 0.6, ease: 'power3.out' }
+          ).fromTo(
+            card.querySelectorAll(CARD_BITS),
+            { y: 26, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.05, ease: 'power3.out' },
+            '-=0.4'
+          )
+        })
       })
 
       mm.add('(max-width: 900px)', () => {
-        gsap.from('.exp-card', {
-          y: 32,
-          autoAlpha: 0,
-          stagger: 0.1,
-          duration: 0.7,
-          scrollTrigger: { trigger: track, start: 'top 82%' },
+        gsap.fromTo(
+          '.exp-card',
+          { y: 32, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            stagger: 0.1,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: revealTrigger(track, 'top 82%'),
+          }
+        )
+      })
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        revealUp('.exp-head .section-index, .exp-head .section-title, .exp-head .section-kicker', {
+          trigger: '.exp-head',
+          y: 22,
+          stagger: 0.08,
+          duration: 0.65,
+          start: 'top 90%',
         })
       })
 

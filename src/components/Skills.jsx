@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { gsap, useGSAP } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import { revealHead, revealTrigger, whenFontsReady } from '../lib/reveal'
 import { skillRows } from '../data'
 import './Skills.css'
 
@@ -8,14 +9,52 @@ const Skills = () => {
 
   useGSAP(
     () => {
-      gsap.from('.skill-row', {
-        y: 40,
-        autoAlpha: 0,
-        stagger: 0.12,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+      const root = sectionRef.current
+      const mm = gsap.matchMedia()
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        let cleanup
+
+        whenFontsReady(() => {
+          cleanup = revealHead(root, 'top 88%')
+          ScrollTrigger.refresh()
+        })
+
+        gsap.fromTo(
+          '.skill-row',
+          { y: 40, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            stagger: 0.12,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: revealTrigger(root, 'top 78%'),
+          }
+        )
+
+        // Rows slide against each other as you scroll, in both directions.
+        gsap.utils.toArray('.skill-row').forEach((row, i) => {
+          gsap.fromTo(
+            row,
+            { xPercent: i % 2 ? 3 : -3 },
+            {
+              xPercent: i % 2 ? -3 : 3,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: root,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+              },
+            }
+          )
+        })
+
+        return () => cleanup?.()
       })
+
+      return () => mm.revert()
     },
     { scope: sectionRef }
   )
