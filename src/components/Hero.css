@@ -2,8 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 120px 0 0;
+  padding: 96px 0 0;
   position: relative;
   overflow: hidden;
 }
@@ -11,7 +10,8 @@
 .hero-visual {
   padding: 0 var(--pad) 40px;
   max-width: var(--container);
-  margin: 0 auto;
+  /* auto margins split the leftover height so the copy is not bottom-heavy */
+  margin: auto;
   width: 100%;
 }
 
@@ -135,7 +135,7 @@
 }
 
 .hero-marquee {
-  margin-top: 56px;
+  margin-top: 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   overflow: hidden;

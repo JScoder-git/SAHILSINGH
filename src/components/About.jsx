@@ -75,7 +75,7 @@ const About = () => {
 
         revealUp('.about-copy p', { trigger: '.about-copy', y: 28, stagger: 0.12, duration: 0.8, start: 'top 80%' })
         revealUp('.about-chip', { trigger: '.about-chips', y: 20, stagger: 0.06, duration: 0.55, start: 'top 88%' })
-        revealUp('.about-actions .btn', { trigger: '.about-actions', y: 20, stagger: 0.08, duration: 0.6, start: 'top 92%' })
+        revealUp('.about-actions > *', { trigger: '.about-actions', y: 20, stagger: 0.08, duration: 0.6, start: 'top 92%' })
 
         return () => cleanup?.()
       })
@@ -99,7 +99,6 @@ const About = () => {
         <div className="about-grid">
           <div className="about-photo">
             <img src={ProfilePicture} alt={profile.name} />
-            <span className="about-badge">Open to work</span>
           </div>
 
           <div className="about-copy">
@@ -124,6 +123,7 @@ const About = () => {
               <a href={profile.linkedin} target="_blank" rel="noreferrer" className="btn btn-ghost" data-cursor="Open">
                 LinkedIn
               </a>
+              <span className="about-badge">Open to work</span>
             </div>
           </div>
         </div>
