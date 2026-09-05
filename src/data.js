@@ -4,6 +4,10 @@ import gexusImage from './assets/gexus.png'
 import jsyncImage from './assets/jsync-logo.png'
 import tripitImage from './assets/tripit.png'
 import codeJettImage from './assets/codejett-logo.png'
+import tudoorLogo from './assets/logos/tudoor-white.png'
+import psquareLogo from './assets/logos/psquare.png'
+import navoditaLogo from './assets/logos/navodita.png'
+import tripitLogo from './assets/logos/tripit-india.png'
 
 export const profile = {
   name: 'Sahil Singh',
@@ -78,11 +82,14 @@ export const experiences = [
   {
     index: '01',
     role: 'Solo Full-Stack',
-    company: 'PSquare · TUDOOR',
+    company: 'TUDOOR',
     client: 'tudoor.co',
     location: 'Mohali, India',
     period: 'Jun 2026 — Aug 2026',
     type: 'Solo',
+    logo: tudoorLogo,
+    logoBg: '#ffffff',
+    logoFit: 'contain',
     description: [
       'Shipped the public EdTech marketplace alone — web plus Capacitor Android/iOS.',
       'Owned Express 5 + Prisma + PostgreSQL API, Redis, Socket.io chat, Razorpay + RevenueCat.',
@@ -98,6 +105,8 @@ export const experiences = [
     location: 'Mohali, India',
     period: 'Aug 2025 — Jun 2026',
     type: 'Full-time',
+    logo: psquareLogo,
+    logoBg: '#5b2d8e',
     description: [
       'Built frontend for a 20+ engineer Electron ERP — 7 role UIs, 59 IPC handlers, ~700 TS/TSX files.',
       'Owned Redux Toolkit + RTK Query (38 slices, ~450 endpoints) across Billing, Inventory, PO, HR.',
@@ -113,6 +122,8 @@ export const experiences = [
     location: 'Mohali, India',
     period: 'May 2025 — Aug 2025',
     type: 'Full-time',
+    logo: psquareLogo,
+    logoBg: '#5b2d8e',
     description: [
       'Built a private firm operations dashboard with org-restricted access.',
       'Reporting UI with PDF/Excel export flows and reusable module components.',
@@ -127,6 +138,8 @@ export const experiences = [
     location: 'Pune, India',
     period: 'Dec 2024 — Apr 2025',
     type: 'Full-time',
+    logo: navoditaLogo,
+    logoBg: '#4a1c24',
     description: [
       'Built React social feed, messaging UI, and realtime chat for 500+ users / 1,000+ daily messages.',
       'Express + MongoDB APIs, JWT auth, and a dedicated Socket.io service.',
@@ -141,6 +154,8 @@ export const experiences = [
     location: 'Delhi, India',
     period: 'Aug 2024 — Dec 2024',
     type: 'Full-time',
+    logo: tripitLogo,
+    logoBg: '#b7e4df',
     description: [
       'Developed booking UI and REST APIs for tours, international packages, custom requests, and blog.',
       'JWT-secured booking flows on MongoDB supporting $50K+ in bookings.',
@@ -163,6 +178,7 @@ export const projects = [
     tech: ['React 19', 'Capacitor', 'Express', 'Prisma', 'Redis'],
     image: tudoorImage,
     imageFit: 'cover',
+    imageBg: '#0b1220',
     color: '#7dd3fc',
     live: 'https://tudoor.co',
   },
@@ -195,6 +211,7 @@ export const projects = [
     tech: ['NestJS', 'React 19', 'Go', 'Prisma', 'Razorpay'],
     image: gexusImage,
     imageFit: 'contain',
+    imageBg: '#101010',
     color: '#c4b5fd',
     live: 'https://gexus.tech',
   },

@@ -58,7 +58,7 @@ const Experience = () => {
               <p className="section-index">03 — Experience</p>
               <h2 className="section-title">Selected roles.</h2>
             </div>
-            <p className="section-kicker">Scroll sideways through the work — PSquare first, then the path in.</p>
+            <p className="section-kicker">Scroll sideways through the work — TUDOOR first, then the path in.</p>
           </div>
         </div>
 
@@ -67,8 +67,13 @@ const Experience = () => {
             {experiences.map((exp) => (
               <article key={exp.index} className="exp-card">
                 <div className="exp-top">
-                  <span className="exp-num">{exp.index}</span>
-                  <span className="exp-type">{exp.type}</span>
+                  <div className={`exp-logo${exp.logoFit === 'contain' ? ' is-contain' : ''}`} style={{ background: exp.logoBg }}>
+                    <img src={exp.logo} alt={`${exp.company} logo`} />
+                  </div>
+                  <div className="exp-meta">
+                    <span className="exp-num">{exp.index}</span>
+                    <span className="exp-type">{exp.type}</span>
+                  </div>
                 </div>
                 <p className="exp-period">{exp.period}</p>
                 <h3>{exp.role}</h3>
